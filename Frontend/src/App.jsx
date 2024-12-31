@@ -7,17 +7,9 @@ function App() {
   useEffect(() => {
     fetch("http://localhost:3000/todos")
       .then(async (res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        try {
           const json = await res.json();
-          setTodos(json.todos || []);
-        } catch (error) {
-          console.error("Failed to parse JSON:", error);
-        }
-      })
-      .catch((err) => console.error("Fetch error:", err));
+          setTodos(json.todos);
+      });
   }, []);
   
 
