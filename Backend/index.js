@@ -28,11 +28,14 @@ app.post("/todo", async (req, res)=>{
     })
 });
 
-app.get("/todos", async (req, res)=>{
-    const response = await todo.find({})
-    res.json({
-        response
-    })
+app.get("/todos", async (req, res) => {
+    try {
+        const todos = await todo.find({});
+        res.json({ todos });
+    } catch (error) {
+        console.error("Error fetching todos:", error);
+        res.status(500).json({ error: "Failed to fetch todos." });
+    }
 });
 
 app.put("/completed", async (req, res)=>{
